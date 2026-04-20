@@ -1,0 +1,705 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Super Email - Professional Email Blast</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Round" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <!-- Custom Title Bar -->
+  <div class="titlebar" id="titlebar">
+    <div class="titlebar-drag">
+      <div class="titlebar-logo">
+        <span class="material-icons-round logo-icon">rocket_launch</span>
+        <span class="titlebar-title">Super Email</span>
+        <span class="titlebar-version">v2.0</span>
+      </div>
+    </div>
+    <div class="titlebar-controls">
+      <button class="titlebar-btn minimize" id="btn-minimize"><span class="material-icons-round">remove</span></button>
+      <button class="titlebar-btn maximize" id="btn-maximize"><span class="material-icons-round">crop_square</span></button>
+      <button class="titlebar-btn close" id="btn-close"><span class="material-icons-round">close</span></button>
+    </div>
+  </div>
+
+  <div class="app-container">
+    <!-- Sidebar -->
+    <nav class="sidebar" id="sidebar">
+      <div class="sidebar-profile">
+        <div class="profile-avatar"><span class="material-icons-round">email</span></div>
+        <div class="profile-info">
+          <span class="profile-name">Super Email</span>
+          <span class="profile-status"><span class="status-dot"></span> Active</span>
+        </div>
+      </div>
+
+      <div class="sidebar-menu">
+        <div class="menu-section">
+          <span class="menu-label">MENU UTAMA</span>
+          <button class="nav-item active" data-page="dashboard" id="nav-dashboard">
+            <span class="material-icons-round">dashboard</span><span class="nav-text">Dashboard</span>
+          </button>
+          <button class="nav-item" data-page="campaigns" id="nav-campaigns">
+            <span class="material-icons-round">campaign</span><span class="nav-text">Kampanye</span>
+          </button>
+          <button class="nav-item" data-page="contacts" id="nav-contacts">
+            <span class="material-icons-round">contacts</span><span class="nav-text">Kontak</span>
+          </button>
+          <button class="nav-item" data-page="groups" id="nav-groups">
+            <span class="material-icons-round">folder_shared</span><span class="nav-text">Grup Kontak</span>
+          </button>
+          <button class="nav-item" data-page="templates" id="nav-templates">
+            <span class="material-icons-round">article</span><span class="nav-text">Template</span>
+          </button>
+        </div>
+
+        <div class="menu-section">
+          <span class="menu-label">TOOLS</span>
+          <button class="nav-item" data-page="scraper" id="nav-scraper">
+            <span class="material-icons-round">travel_explore</span><span class="nav-text">Email Scraper</span>
+          </button>
+          <button class="nav-item" data-page="monitoring" id="nav-monitoring">
+            <span class="material-icons-round">monitoring</span><span class="nav-text">Monitoring</span>
+          </button>
+          <button class="nav-item" data-page="analytics" id="nav-analytics">
+            <span class="material-icons-round">analytics</span><span class="nav-text">Analytics</span>
+          </button>
+          <button class="nav-item" data-page="validator" id="nav-validator">
+            <span class="material-icons-round">verified</span><span class="nav-text">Validasi Email</span>
+          </button>
+        </div>
+
+        <div class="menu-section">
+          <span class="menu-label">PENGATURAN</span>
+          <button class="nav-item" data-page="accounts" id="nav-accounts">
+            <span class="material-icons-round">mail_outline</span><span class="nav-text">Akun Email</span>
+            <span class="nav-badge" id="accounts-badge" style="display:none">0</span>
+          </button>
+          <button class="nav-item" data-page="blacklist" id="nav-blacklist">
+            <span class="material-icons-round">block</span><span class="nav-text">Blacklist</span>
+          </button>
+          <button class="nav-item" data-page="settings" id="nav-settings">
+            <span class="material-icons-round">settings</span><span class="nav-text">Pengaturan</span>
+          </button>
+        </div>
+      </div>
+
+      <div class="sidebar-footer">
+        <div class="sidebar-footer-info">
+          <span class="material-icons-round">info</span><span>Super Email v2.0.0</span>
+        </div>
+      </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="main-content" id="main-content">
+
+      <!-- ========== DASHBOARD ========== -->
+      <section class="page active" id="page-dashboard">
+        <div class="page-header">
+          <div class="page-header-left">
+            <h1 class="page-title">Dashboard</h1>
+            <p class="page-subtitle">Ringkasan aktivitas email blast Anda</p>
+          </div>
+          <div class="page-header-right">
+            <button class="btn btn-primary btn-glow" onclick="navigateTo('campaigns')">
+              <span class="material-icons-round">add</span> Kampanye Baru
+            </button>
+          </div>
+        </div>
+
+        <div class="stats-grid">
+          <div class="stat-card stat-gradient-1">
+            <div class="stat-icon"><span class="material-icons-round">send</span></div>
+            <div class="stat-info"><span class="stat-value" id="stat-sent">0</span><span class="stat-label">Email Terkirim</span></div>
+          </div>
+          <div class="stat-card stat-gradient-2">
+            <div class="stat-icon"><span class="material-icons-round">campaign</span></div>
+            <div class="stat-info"><span class="stat-value" id="stat-campaigns">0</span><span class="stat-label">Total Kampanye</span></div>
+          </div>
+          <div class="stat-card stat-gradient-3">
+            <div class="stat-icon"><span class="material-icons-round">people</span></div>
+            <div class="stat-info"><span class="stat-value" id="stat-contacts">0</span><span class="stat-label">Total Kontak</span></div>
+          </div>
+          <div class="stat-card stat-gradient-4">
+            <div class="stat-icon"><span class="material-icons-round">mail_outline</span></div>
+            <div class="stat-info"><span class="stat-value" id="stat-accounts">0</span><span class="stat-label">Akun Email</span></div>
+          </div>
+        </div>
+
+        <div class="stats-grid stats-grid-3">
+          <div class="stat-card-mini"><span class="material-icons-round text-success">folder_shared</span><span class="stat-mini-val" id="stat-groups">0</span><span class="stat-mini-label">Grup</span></div>
+          <div class="stat-card-mini"><span class="material-icons-round text-danger">block</span><span class="stat-mini-val" id="stat-blacklisted">0</span><span class="stat-mini-label">Blacklist</span></div>
+          <div class="stat-card-mini"><span class="material-icons-round text-warning">schedule</span><span class="stat-mini-val" id="stat-active">0</span><span class="stat-mini-label">Aktif Kirim</span></div>
+        </div>
+
+        <div class="dashboard-grid">
+          <div class="card dashboard-card">
+            <div class="card-header"><h3><span class="material-icons-round">history</span> Kampanye Terbaru</h3></div>
+            <div class="card-body" id="recent-campaigns">
+              <div class="empty-state small"><span class="material-icons-round">inbox</span><p>Belum ada kampanye</p></div>
+            </div>
+          </div>
+          <div class="card dashboard-card">
+            <div class="card-header"><h3><span class="material-icons-round">insights</span> Ringkasan Pengiriman</h3></div>
+            <div class="card-body">
+              <div class="send-summary">
+                <div class="summary-chart">
+                  <div class="donut-chart">
+                    <svg viewBox="0 0 120 120">
+                      <circle cx="60" cy="60" r="50" fill="none" stroke="#1a1a2e" stroke-width="12"/>
+                      <circle cx="60" cy="60" r="50" fill="none" stroke="#00d4aa" stroke-width="12" stroke-dasharray="314" stroke-dashoffset="314" id="chart-sent" transform="rotate(-90 60 60)" stroke-linecap="round"/>
+                      <circle cx="60" cy="60" r="50" fill="none" stroke="#ff4757" stroke-width="12" stroke-dasharray="314" stroke-dashoffset="314" id="chart-failed" transform="rotate(-90 60 60)" stroke-linecap="round"/>
+                    </svg>
+                    <div class="donut-center"><span class="donut-value" id="donut-value">0%</span><span class="donut-label">Sukses</span></div>
+                  </div>
+                </div>
+                <div class="summary-legend">
+                  <div class="legend-item"><span class="legend-dot" style="background:#00d4aa"></span><span>Terkirim</span><span class="legend-val" id="legend-sent">0</span></div>
+                  <div class="legend-item"><span class="legend-dot" style="background:#ff4757"></span><span>Gagal</span><span class="legend-val" id="legend-failed">0</span></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ========== CAMPAIGNS ========== -->
+      <section class="page" id="page-campaigns">
+        <div class="page-header">
+          <div class="page-header-left">
+            <h1 class="page-title">Kampanye Email</h1>
+            <p class="page-subtitle">Buat dan kelola kampanye email blast</p>
+          </div>
+          <div class="page-header-right">
+            <button class="btn btn-primary btn-glow" id="btn-new-campaign">
+              <span class="material-icons-round">add</span> Buat Kampanye
+            </button>
+          </div>
+        </div>
+
+        <div class="card" id="campaign-list-card">
+          <div class="card-header">
+            <h3><span class="material-icons-round">list</span> Daftar Kampanye</h3>
+            <div class="card-actions">
+              <select class="select-filter" id="campaign-filter">
+                <option value="all">Semua</option><option value="draft">Draft</option><option value="scheduled">Terjadwal</option><option value="sending">Mengirim</option><option value="paused">Dijeda</option><option value="completed">Selesai</option><option value="failed">Gagal</option><option value="cancelled">Dibatalkan</option>
+              </select>
+            </div>
+          </div>
+          <div class="card-body">
+            <div class="table-wrapper">
+              <table class="data-table" id="campaigns-table">
+                <thead><tr><th>Nama</th><th>Subjek</th><th>Penerima</th><th>Terkirim</th><th>Gagal</th><th>Status</th><th>Jadwal</th><th>Aksi</th></tr></thead>
+                <tbody id="campaigns-tbody"></tbody>
+              </table>
+            </div>
+            <div class="empty-state" id="campaigns-empty">
+              <span class="material-icons-round">campaign</span><h3>Belum Ada Kampanye</h3><p>Buat kampanye pertama Anda</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Campaign Form -->
+        <div class="card slide-panel" id="campaign-form-card" style="display:none">
+          <div class="card-header">
+            <h3><span class="material-icons-round">edit</span> <span id="campaign-form-title">Buat Kampanye Baru</span></h3>
+            <button class="btn btn-ghost" id="btn-cancel-campaign"><span class="material-icons-round">close</span></button>
+          </div>
+          <div class="card-body">
+            <form id="campaign-form" class="form-grid">
+              <div class="form-row">
+                <div class="form-group"><label>Nama Kampanye</label><input type="text" id="camp-name" class="form-input" placeholder="Contoh: Promo Akhir Tahun" required></div>
+                <div class="form-group"><label>Dari Nama</label><input type="text" id="camp-from-name" class="form-input" placeholder="Nama pengirim"></div>
+              </div>
+              <div class="form-row">
+                <div class="form-group"><label>Subjek Email</label><input type="text" id="camp-subject" class="form-input" placeholder="Subjek yang menarik · Gunakan {{name}} untuk personalisasi" required></div>
+                <div class="form-group"><label>Reply-To</label><input type="email" id="camp-reply-to" class="form-input" placeholder="email@balasan.com"></div>
+              </div>
+
+              <!-- Spintax & Options Row -->
+              <div class="form-row form-row-3">
+                <div class="form-group">
+                  <label>Jadwal Kirim</label>
+                  <input type="datetime-local" id="camp-schedule" class="form-input">
+                  <small class="form-hint">Kosongkan untuk kirim manual</small>
+                </div>
+                <div class="form-group">
+                  <label>Opsi</label>
+                  <div class="toggle-row">
+                    <label class="toggle-label"><input type="checkbox" id="camp-spintax"><span>Spintax</span></label>
+                    <label class="toggle-label"><input type="checkbox" id="camp-unsubscribe"><span>Unsubscribe Link</span></label>
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label>Lampiran</label>
+                  <button type="button" class="btn btn-sm btn-outline btn-block" id="btn-add-attachment">
+                    <span class="material-icons-round">attach_file</span> Pilih File
+                  </button>
+                  <div class="attachment-list" id="attachment-list"></div>
+                </div>
+              </div>
+
+              <!-- Spintax Helper -->
+              <div class="spintax-helper" id="spintax-helper" style="display:none">
+                <div class="helper-header"><span class="material-icons-round">auto_fix_high</span> Bantuan Spintax & Personalisasi</div>
+                <div class="helper-tags">
+                  <button type="button" class="helper-tag" onclick="insertVariable('{{name}}')">{{name}}</button>
+                  <button type="button" class="helper-tag" onclick="insertVariable('{{email}}')">{{email}}</button>
+                  <button type="button" class="helper-tag" onclick="insertVariable('{{company}}')">{{company}}</button>
+                  <button type="button" class="helper-tag" onclick="insertVariable('{{date}}')">{{date}}</button>
+                  <button type="button" class="helper-tag" onclick="insertVariable('{{day}}')">{{day}}</button>
+                  <button type="button" class="helper-tag spintax-tag" onclick="insertVariable('{Halo|Hi|Hey|Salam}')">Sapaan</button>
+                  <button type="button" class="helper-tag spintax-tag" onclick="insertVariable('{kami|kita|tim kami}')">Kami/Kita</button>
+                  <button type="button" class="helper-tag spintax-tag" onclick="insertVariable('{menarik|spesial|istimewa|luar biasa}')">Adjektif</button>
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label>Pilih Akun Pengirim</label>
+                <div class="checkbox-list" id="camp-accounts"></div>
+              </div>
+              <div class="form-group">
+                <label>Penerima <small>(satu email per baris, atau pisahkan koma)</small></label>
+                <textarea id="camp-recipients" class="form-textarea" rows="4" placeholder="email1@contoh.com&#10;email2@contoh.com"></textarea>
+                <div class="form-row" style="margin-top:8px;">
+                  <button type="button" class="btn btn-sm btn-outline" id="btn-load-contacts"><span class="material-icons-round">contacts</span> Dari Kontak</button>
+                  <button type="button" class="btn btn-sm btn-outline" id="btn-load-group"><span class="material-icons-round">folder_shared</span> Dari Grup</button>
+                  <button type="button" class="btn btn-sm btn-outline" id="btn-import-file-campaign"><span class="material-icons-round">upload_file</span> Impor File</button>
+                  <span class="recipient-count" id="recipient-count">0 penerima</span>
+                </div>
+              </div>
+              <div class="form-group">
+                <label>Isi Email (HTML)</label>
+                <div class="editor-toolbar">
+                  <button type="button" class="toolbar-btn" onclick="insertHtmlTag('b')"><b>B</b></button>
+                  <button type="button" class="toolbar-btn" onclick="insertHtmlTag('i')"><i>I</i></button>
+                  <button type="button" class="toolbar-btn" onclick="insertHtmlTag('u')"><u>U</u></button>
+                  <button type="button" class="toolbar-btn" onclick="insertHtmlTag('h2')">H</button>
+                  <button type="button" class="toolbar-btn" onclick="insertHtmlTag('a', 'href=&quot;#&quot;')">🔗</button>
+                  <button type="button" class="toolbar-btn" onclick="insertHtmlTag('br')">↵</button>
+                  <span class="toolbar-sep"></span>
+                  <button type="button" class="btn btn-sm btn-outline" id="btn-load-template"><span class="material-icons-round">article</span> Template</button>
+                  <button type="button" class="btn btn-sm btn-outline" id="btn-preview-email"><span class="material-icons-round">preview</span> Preview</button>
+                </div>
+                <textarea id="camp-body" class="form-textarea code-editor" rows="12" placeholder="<h1>{Halo|Hi} {{name}}!</h1>&#10;<p>Isi email Anda...</p>"></textarea>
+              </div>
+              <div class="form-actions">
+                <button type="button" class="btn btn-ghost" id="btn-cancel-form">Batal</button>
+                <button type="button" class="btn btn-outline" id="btn-save-draft"><span class="material-icons-round">save</span> Simpan Draft</button>
+                <button type="button" class="btn btn-outline" id="btn-schedule-campaign" style="display:none"><span class="material-icons-round">schedule</span> Jadwalkan</button>
+                <button type="submit" class="btn btn-primary btn-glow"><span class="material-icons-round">send</span> Kirim Sekarang</button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </section>
+
+      <!-- ========== CONTACTS ========== -->
+      <section class="page" id="page-contacts">
+        <div class="page-header">
+          <div class="page-header-left"><h1 class="page-title">Kontak Email</h1><p class="page-subtitle">Kelola daftar kontak penerima</p></div>
+          <div class="page-header-right">
+            <button class="btn btn-outline" id="btn-export-contacts"><span class="material-icons-round">download</span> Ekspor</button>
+            <button class="btn btn-outline" id="btn-import-contacts"><span class="material-icons-round">upload</span> Impor</button>
+            <button class="btn btn-outline" id="btn-validate-selected"><span class="material-icons-round">verified</span> Validasi</button>
+            <button class="btn btn-primary" id="btn-add-contact"><span class="material-icons-round">person_add</span> Tambah</button>
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-header">
+            <h3><span class="material-icons-round">people</span> Daftar Kontak</h3>
+            <div class="card-actions">
+              <button class="btn btn-sm btn-ghost text-danger" id="btn-delete-selected" style="display:none"><span class="material-icons-round">delete</span> Hapus Terpilih</button>
+              <button class="btn btn-sm btn-outline" id="btn-add-selected-to-group" style="display:none"><span class="material-icons-round">group_add</span> + Grup</button>
+              <div class="search-box"><span class="material-icons-round">search</span><input type="text" id="contacts-search" placeholder="Cari kontak..."></div>
+            </div>
+          </div>
+          <div class="card-body">
+            <div class="table-wrapper">
+              <table class="data-table"><thead><tr><th><input type="checkbox" id="select-all-contacts"></th><th>Email</th><th>Nama</th><th>Perusahaan</th><th>Sumber</th><th>Valid</th><th>Aksi</th></tr></thead>
+              <tbody id="contacts-tbody"></tbody></table>
+            </div>
+            <div class="empty-state" id="contacts-empty"><span class="material-icons-round">contacts</span><h3>Belum Ada Kontak</h3><p>Tambahkan kontak atau gunakan Email Scraper</p></div>
+          </div>
+        </div>
+
+        <!-- Add Contact Modal -->
+        <div class="modal-overlay" id="modal-add-contact" style="display:none">
+          <div class="modal">
+            <div class="modal-header"><h3><span class="material-icons-round">person_add</span> Tambah Kontak</h3><button class="btn btn-ghost modal-close" onclick="closeModal('modal-add-contact')"><span class="material-icons-round">close</span></button></div>
+            <div class="modal-body">
+              <form id="contact-form">
+                <div class="form-group"><label>Email <span class="required">*</span></label><input type="email" id="contact-email" class="form-input" required placeholder="email@contoh.com"></div>
+                <div class="form-row"><div class="form-group"><label>Nama</label><input type="text" id="contact-name" class="form-input" placeholder="Nama lengkap"></div><div class="form-group"><label>Perusahaan</label><input type="text" id="contact-company" class="form-input" placeholder="Nama perusahaan"></div></div>
+                <div class="form-group"><label>Telepon</label><input type="text" id="contact-phone" class="form-input" placeholder="+62..."></div>
+              </form>
+            </div>
+            <div class="modal-footer"><button class="btn btn-ghost" onclick="closeModal('modal-add-contact')">Batal</button><button class="btn btn-primary" id="btn-save-contact"><span class="material-icons-round">save</span> Simpan</button></div>
+          </div>
+        </div>
+
+        <!-- Add to Group Modal -->
+        <div class="modal-overlay" id="modal-add-to-group" style="display:none">
+          <div class="modal">
+            <div class="modal-header"><h3><span class="material-icons-round">group_add</span> Tambah ke Grup</h3><button class="btn btn-ghost" onclick="closeModal('modal-add-to-group')"><span class="material-icons-round">close</span></button></div>
+            <div class="modal-body"><div id="group-selector-list" class="group-selector-list"></div></div>
+            <div class="modal-footer"><button class="btn btn-ghost" onclick="closeModal('modal-add-to-group')">Batal</button></div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ========== GROUPS ========== -->
+      <section class="page" id="page-groups">
+        <div class="page-header">
+          <div class="page-header-left"><h1 class="page-title">Grup Kontak</h1><p class="page-subtitle">Kelompokkan kontak ke dalam grup untuk pengiriman mudah</p></div>
+          <div class="page-header-right"><button class="btn btn-primary" id="btn-new-group"><span class="material-icons-round">create_new_folder</span> Buat Grup</button></div>
+        </div>
+        <div class="groups-grid" id="groups-grid"></div>
+        <div class="empty-state" id="groups-empty"><span class="material-icons-round">folder_shared</span><h3>Belum Ada Grup</h3><p>Buat grup untuk mengelompokkan kontak Anda</p></div>
+
+        <!-- Group Members View -->
+        <div class="card" id="group-members-card" style="display:none">
+          <div class="card-header">
+            <h3><span class="material-icons-round">group</span> Anggota Grup: <span id="group-members-title"></span></h3>
+            <button class="btn btn-ghost" onclick="closeGroupMembers()"><span class="material-icons-round">close</span></button>
+          </div>
+          <div class="card-body">
+            <div class="table-wrapper">
+              <table class="data-table"><thead><tr><th>Email</th><th>Nama</th><th>Perusahaan</th><th>Aksi</th></tr></thead>
+              <tbody id="group-members-tbody"></tbody></table>
+            </div>
+          </div>
+        </div>
+
+        <!-- Create Group Modal -->
+        <div class="modal-overlay" id="modal-create-group" style="display:none">
+          <div class="modal">
+            <div class="modal-header"><h3><span class="material-icons-round">create_new_folder</span> <span id="group-modal-title">Buat Grup Baru</span></h3><button class="btn btn-ghost" onclick="closeModal('modal-create-group')"><span class="material-icons-round">close</span></button></div>
+            <div class="modal-body">
+              <div class="form-group"><label>Nama Grup</label><input type="text" id="group-name" class="form-input" placeholder="Contoh: Pelanggan VIP" required></div>
+              <div class="form-group"><label>Deskripsi</label><input type="text" id="group-desc" class="form-input" placeholder="Deskripsi singkat"></div>
+              <div class="form-group"><label>Warna</label>
+                <div class="color-picker">
+                  <button type="button" class="color-opt active" data-color="#6c5ce7" style="background:#6c5ce7"></button>
+                  <button type="button" class="color-opt" data-color="#00d4aa" style="background:#00d4aa"></button>
+                  <button type="button" class="color-opt" data-color="#ff6b81" style="background:#ff6b81"></button>
+                  <button type="button" class="color-opt" data-color="#45aaf2" style="background:#45aaf2"></button>
+                  <button type="button" class="color-opt" data-color="#ffa502" style="background:#ffa502"></button>
+                  <button type="button" class="color-opt" data-color="#2d3436" style="background:#2d3436"></button>
+                </div>
+              </div>
+            </div>
+            <div class="modal-footer"><button class="btn btn-ghost" onclick="closeModal('modal-create-group')">Batal</button><button class="btn btn-primary" id="btn-save-group"><span class="material-icons-round">save</span> Simpan</button></div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ========== TEMPLATES ========== -->
+      <section class="page" id="page-templates">
+        <div class="page-header">
+          <div class="page-header-left"><h1 class="page-title">Template Email</h1><p class="page-subtitle">Template siap pakai untuk kampanye</p></div>
+          <div class="page-header-right"><button class="btn btn-primary" id="btn-new-template"><span class="material-icons-round">add</span> Buat Template</button></div>
+        </div>
+        <div class="templates-grid" id="templates-grid"></div>
+        <div class="empty-state" id="templates-empty"><span class="material-icons-round">article</span><h3>Belum Ada Template</h3></div>
+        <div class="modal-overlay" id="modal-template" style="display:none">
+          <div class="modal modal-lg">
+            <div class="modal-header"><h3><span class="material-icons-round">edit</span> <span id="template-modal-title">Buat Template Baru</span></h3><button class="btn btn-ghost" onclick="closeModal('modal-template')"><span class="material-icons-round">close</span></button></div>
+            <div class="modal-body">
+              <form id="template-form">
+                <div class="form-row"><div class="form-group"><label>Nama</label><input type="text" id="tpl-name" class="form-input" required></div><div class="form-group"><label>Kategori</label><select id="tpl-category" class="form-input"><option value="marketing">Marketing</option><option value="newsletter">Newsletter</option><option value="transactional">Transactional</option><option value="notification">Notification</option><option value="invitation">Undangan</option><option value="followup">Follow-up</option><option value="other">Lainnya</option></select></div></div>
+                <div class="form-group"><label>Subjek</label><input type="text" id="tpl-subject" class="form-input"></div>
+                <div class="form-group"><label>Isi (HTML)</label><textarea id="tpl-body" class="form-textarea code-editor" rows="15"></textarea></div>
+              </form>
+            </div>
+            <div class="modal-footer"><button class="btn btn-ghost" onclick="closeModal('modal-template')">Batal</button><button class="btn btn-primary" id="btn-save-template"><span class="material-icons-round">save</span> Simpan</button></div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ========== SCRAPER ========== -->
+      <section class="page" id="page-scraper">
+        <div class="page-header">
+          <div class="page-header-left"><h1 class="page-title">Email Scraper</h1><p class="page-subtitle">Cari alamat email dari berbagai sumber</p></div>
+        </div>
+        <div class="scraper-grid">
+          <div class="card">
+            <div class="card-header"><h3><span class="material-icons-round">search</span> Pencarian</h3></div>
+            <div class="card-body">
+              <div class="form-group"><label>Sumber</label>
+                <div class="source-pills">
+                  <button class="pill active" data-source="google"><span class="material-icons-round">search</span> Google</button>
+                  <button class="pill" data-source="google_maps"><span class="material-icons-round">map</span> Maps</button>
+                  <button class="pill" data-source="website"><span class="material-icons-round">language</span> Website</button>
+                  <button class="pill" data-source="bing"><span class="material-icons-round">search</span> Bing</button>
+                </div>
+              </div>
+              <div class="form-group"><label id="scrape-query-label">Kata Kunci</label><input type="text" id="scrape-query" class="form-input" placeholder="Contoh: restoran jakarta email"></div>
+              <div class="form-group"><label>Maks Hasil</label><input type="number" id="scrape-max" class="form-input" value="100" min="1" max="1000"></div>
+              <button class="btn btn-primary btn-glow btn-block" id="btn-start-scrape"><span class="material-icons-round">travel_explore</span> Mulai Scraping</button>
+            </div>
+          </div>
+          <div class="card">
+            <div class="card-header"><h3><span class="material-icons-round">terminal</span> Progress</h3></div>
+            <div class="card-body"><div class="scrape-console" id="scrape-console"><div class="console-line info"><span class="console-time">[System]</span><span>Siap...</span></div></div></div>
+          </div>
+        </div>
+        <div class="card" id="scrape-results-card" style="display:none">
+          <div class="card-header">
+            <h3><span class="material-icons-round">list</span> Hasil (<span id="scrape-results-count">0</span>)</h3>
+            <div class="card-actions">
+              <button class="btn btn-sm btn-outline" id="btn-add-scrape-to-contacts"><span class="material-icons-round">person_add</span> Ke Kontak</button>
+              <button class="btn btn-sm btn-outline" id="btn-copy-scrape-results"><span class="material-icons-round">content_copy</span> Salin</button>
+            </div>
+          </div>
+          <div class="card-body"><div class="scrape-emails-list" id="scrape-emails-list"></div></div>
+        </div>
+      </section>
+
+      <!-- ========== MONITORING ========== -->
+      <section class="page" id="page-monitoring">
+        <div class="page-header">
+          <div class="page-header-left"><h1 class="page-title">Monitoring</h1><p class="page-subtitle">Pantau pengiriman real-time</p></div>
+          <div class="page-header-right"><button class="btn btn-outline" id="btn-refresh-logs"><span class="material-icons-round">refresh</span> Refresh</button></div>
+        </div>
+        <div class="monitor-stats">
+          <div class="monitor-stat"><div class="monitor-stat-icon sent"><span class="material-icons-round">check_circle</span></div><div class="monitor-stat-info"><span class="monitor-stat-value" id="monitor-sent">0</span><span class="monitor-stat-label">Terkirim</span></div></div>
+          <div class="monitor-stat"><div class="monitor-stat-icon failed"><span class="material-icons-round">error</span></div><div class="monitor-stat-info"><span class="monitor-stat-value" id="monitor-failed">0</span><span class="monitor-stat-label">Gagal</span></div></div>
+          <div class="monitor-stat"><div class="monitor-stat-icon pending"><span class="material-icons-round">pending</span></div><div class="monitor-stat-info"><span class="monitor-stat-value" id="monitor-pending">0</span><span class="monitor-stat-label">Pending</span></div></div>
+          <div class="monitor-stat"><div class="monitor-stat-icon rate"><span class="material-icons-round">speed</span></div><div class="monitor-stat-info"><span class="monitor-stat-value" id="monitor-rate">0%</span><span class="monitor-stat-label">Sukses</span></div></div>
+        </div>
+        <!-- Live Progress -->
+        <div class="card" id="live-progress-card" style="display:none">
+          <div class="card-header"><h3><span class="material-icons-round pulse-icon">circle</span> Pengiriman Aktif</h3>
+            <div class="card-actions">
+              <button class="btn btn-sm btn-outline" id="btn-pause-send"><span class="material-icons-round">pause</span> Jeda</button>
+              <button class="btn btn-sm btn-outline" id="btn-resume-send" style="display:none"><span class="material-icons-round">play_arrow</span> Lanjut</button>
+              <button class="btn btn-sm btn-ghost text-danger" id="btn-cancel-send"><span class="material-icons-round">stop</span> Batal</button>
+            </div>
+          </div>
+          <div class="card-body">
+            <div class="progress-info"><span id="progress-text">Mengirim...</span><span id="progress-percent">0%</span></div>
+            <div class="progress-bar-track"><div class="progress-bar-fill" id="progress-bar" style="width:0%"></div></div>
+            <div class="progress-details">
+              <span><span class="material-icons-round text-success">check_circle</span> <span id="progress-sent">0</span> terkirim</span>
+              <span><span class="material-icons-round text-danger">error</span> <span id="progress-failed">0</span> gagal</span>
+              <span><span class="material-icons-round text-muted">pending</span> <span id="progress-remaining">0</span> tersisa</span>
+            </div>
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-header"><h3><span class="material-icons-round">receipt_long</span> Log</h3><div class="card-actions"><select class="select-filter" id="log-filter"><option value="all">Semua</option><option value="sent">Terkirim</option><option value="failed">Gagal</option><option value="skipped">Dilewati</option></select></div></div>
+          <div class="card-body">
+            <div class="table-wrapper"><table class="data-table"><thead><tr><th>Penerima</th><th>Kampanye</th><th>Status</th><th>Error</th><th>Waktu</th></tr></thead><tbody id="logs-tbody"></tbody></table></div>
+            <div class="empty-state" id="logs-empty"><span class="material-icons-round">receipt_long</span><h3>Belum Ada Log</h3></div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ========== ANALYTICS ========== -->
+      <section class="page" id="page-analytics">
+        <div class="page-header">
+          <div class="page-header-left"><h1 class="page-title">Analytics</h1><p class="page-subtitle">Analisis performa pengiriman email</p></div>
+        </div>
+        <div class="analytics-summary">
+          <div class="analytics-card"><div class="analytics-big-num" id="an-total-sent">0</div><div class="analytics-label">Total Terkirim</div></div>
+          <div class="analytics-card"><div class="analytics-big-num text-danger" id="an-total-failed">0</div><div class="analytics-label">Total Gagal</div></div>
+          <div class="analytics-card"><div class="analytics-big-num text-success" id="an-success-rate">0%</div><div class="analytics-label">Tingkat Sukses</div></div>
+        </div>
+        <div class="dashboard-grid">
+          <div class="card">
+            <div class="card-header"><h3><span class="material-icons-round">bar_chart</span> Pengiriman 7 Hari Terakhir</h3></div>
+            <div class="card-body"><div class="chart-container" id="daily-chart"></div></div>
+          </div>
+          <div class="card">
+            <div class="card-header"><h3><span class="material-icons-round">leaderboard</span> Perbandingan Kampanye</h3></div>
+            <div class="card-body"><div class="campaign-compare-list" id="campaign-compare"></div></div>
+          </div>
+        </div>
+        <div class="dashboard-grid">
+          <div class="card">
+            <div class="card-header"><h3><span class="material-icons-round">source</span> Sumber Kontak</h3></div>
+            <div class="card-body"><div id="source-stats" class="source-stats-list"></div></div>
+          </div>
+          <div class="card">
+            <div class="card-header"><h3><span class="material-icons-round">email</span> Provider Email</h3></div>
+            <div class="card-body"><div id="provider-stats" class="source-stats-list"></div></div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ========== VALIDATOR ========== -->
+      <section class="page" id="page-validator">
+        <div class="page-header">
+          <div class="page-header-left"><h1 class="page-title">Validasi Email</h1><p class="page-subtitle">Verifikasi alamat email sebelum pengiriman</p></div>
+        </div>
+        <div class="card">
+          <div class="card-header"><h3><span class="material-icons-round">verified</span> Validator</h3></div>
+          <div class="card-body">
+            <div class="form-group"><label>Email untuk Divalidasi <small>(satu per baris)</small></label>
+              <textarea id="validate-emails-input" class="form-textarea" rows="6" placeholder="email1@contoh.com&#10;email2@contoh.com"></textarea>
+            </div>
+            <div class="form-row" style="margin-top:8px;gap:8px;">
+              <button class="btn btn-outline" id="btn-load-contacts-validate"><span class="material-icons-round">contacts</span> Muat Semua Kontak</button>
+              <button class="btn btn-primary btn-glow" id="btn-start-validate"><span class="material-icons-round">verified</span> Mulai Validasi</button>
+            </div>
+          </div>
+        </div>
+        <div class="card" id="validation-results-card" style="display:none">
+          <div class="card-header"><h3><span class="material-icons-round">fact_check</span> Hasil Validasi (<span id="val-count">0</span>)</h3>
+            <div class="card-actions">
+              <button class="btn btn-sm btn-outline text-danger" id="btn-blacklist-invalid"><span class="material-icons-round">block</span> Blacklist Invalid</button>
+            </div>
+          </div>
+          <div class="card-body">
+            <div class="progress-bar-track" id="val-progress-track"><div class="progress-bar-fill" id="val-progress-bar" style="width:0%"></div></div>
+            <div class="table-wrapper">
+              <table class="data-table"><thead><tr><th>Email</th><th>Status</th><th>Detail</th></tr></thead>
+              <tbody id="validation-tbody"></tbody></table>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ========== ACCOUNTS ========== -->
+      <section class="page" id="page-accounts">
+        <div class="page-header">
+          <div class="page-header-left"><h1 class="page-title">Akun Email</h1><p class="page-subtitle">Gmail, Yahoo, Outlook & SMTP kustom</p></div>
+          <div class="page-header-right"><button class="btn btn-primary btn-glow" id="btn-add-account"><span class="material-icons-round">add</span> Tambah Akun</button></div>
+        </div>
+        <div class="provider-info-grid">
+          <div class="provider-card"><div class="provider-icon gmail"><span class="material-icons-round">mail</span></div><div class="provider-details"><h4>Gmail</h4><small>smtp.gmail.com:587</small></div></div>
+          <div class="provider-card"><div class="provider-icon yahoo"><span class="material-icons-round">mail</span></div><div class="provider-details"><h4>Yahoo</h4><small>smtp.mail.yahoo.com:587</small></div></div>
+          <div class="provider-card"><div class="provider-icon outlook"><span class="material-icons-round">mail</span></div><div class="provider-details"><h4>Outlook</h4><small>smtp-mail.outlook.com:587</small></div></div>
+          <div class="provider-card"><div class="provider-icon custom"><span class="material-icons-round">dns</span></div><div class="provider-details"><h4>Custom</h4><small>SMTP kustom</small></div></div>
+        </div>
+        <div class="accounts-grid" id="accounts-grid"></div>
+        <div class="empty-state" id="accounts-empty"><span class="material-icons-round">mail_outline</span><h3>Belum Ada Akun</h3></div>
+
+        <div class="modal-overlay" id="modal-add-account" style="display:none">
+          <div class="modal">
+            <div class="modal-header"><h3><span class="material-icons-round">add_circle</span> Tambah Akun Email</h3><button class="btn btn-ghost" onclick="closeModal('modal-add-account')"><span class="material-icons-round">close</span></button></div>
+            <div class="modal-body">
+              <form id="account-form">
+                <div class="form-group"><label>Provider</label><select id="acc-provider" class="form-input"><option value="gmail">Gmail</option><option value="yahoo">Yahoo</option><option value="outlook">Outlook</option><option value="zoho">Zoho</option><option value="yandex">Yandex</option><option value="custom">Custom SMTP</option></select></div>
+                <div class="form-row"><div class="form-group"><label>Nama</label><input type="text" id="acc-name" class="form-input" required></div><div class="form-group"><label>Email</label><input type="email" id="acc-email" class="form-input" required></div></div>
+                <div class="form-row" id="smtp-custom-fields"><div class="form-group"><label>SMTP Host</label><input type="text" id="acc-smtp-host" class="form-input"></div><div class="form-group"><label>Port</label><input type="number" id="acc-smtp-port" class="form-input" value="587"></div></div>
+                <div class="form-row"><div class="form-group"><label>Username</label><input type="text" id="acc-username" class="form-input"></div><div class="form-group"><label>Password</label><div class="input-password-wrap"><input type="password" id="acc-password" class="form-input" required><button type="button" class="btn-toggle-pass" onclick="togglePassword('acc-password',this)"><span class="material-icons-round">visibility_off</span></button></div></div></div>
+                <div class="form-group"><label>Batas Harian</label><input type="number" id="acc-daily-limit" class="form-input" value="500"></div>
+                <div class="form-info"><span class="material-icons-round">info</span><span>Gmail: Aktifkan 2FA, lalu buat <b>App Password</b>.</span></div>
+              </form>
+            </div>
+            <div class="modal-footer">
+              <button class="btn btn-outline" id="btn-test-account"><span class="material-icons-round">electrical_services</span> Test</button>
+              <button class="btn btn-primary" id="btn-save-account"><span class="material-icons-round">save</span> Simpan</button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ========== BLACKLIST ========== -->
+      <section class="page" id="page-blacklist">
+        <div class="page-header">
+          <div class="page-header-left"><h1 class="page-title">Blacklist</h1><p class="page-subtitle">Email yang diblokir dari pengiriman</p></div>
+          <div class="page-header-right">
+            <button class="btn btn-outline" id="btn-add-blacklist"><span class="material-icons-round">add</span> Tambah</button>
+            <button class="btn btn-ghost text-danger" id="btn-clear-blacklist"><span class="material-icons-round">delete_sweep</span> Hapus Semua</button>
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-header"><h3><span class="material-icons-round">block</span> Daftar Blacklist</h3></div>
+          <div class="card-body">
+            <div class="table-wrapper"><table class="data-table"><thead><tr><th>Email</th><th>Alasan</th><th>Sumber</th><th>Tanggal</th><th>Aksi</th></tr></thead>
+            <tbody id="blacklist-tbody"></tbody></table></div>
+            <div class="empty-state" id="blacklist-empty"><span class="material-icons-round">block</span><h3>Blacklist Kosong</h3><p>Email bounce otomatis akan masuk ke sini</p></div>
+          </div>
+        </div>
+
+        <div class="card" style="margin-top:16px">
+          <div class="card-header"><h3><span class="material-icons-round">unsubscribe</span> Unsubscribe</h3></div>
+          <div class="card-body">
+            <div class="table-wrapper"><table class="data-table"><thead><tr><th>Email</th><th>Tanggal</th></tr></thead>
+            <tbody id="unsubscribes-tbody"></tbody></table></div>
+            <div class="empty-state" id="unsub-empty"><span class="material-icons-round">unsubscribe</span><h3>Belum Ada Unsubscribe</h3></div>
+          </div>
+        </div>
+
+        <!-- Add Blacklist Modal -->
+        <div class="modal-overlay" id="modal-add-blacklist" style="display:none">
+          <div class="modal">
+            <div class="modal-header"><h3><span class="material-icons-round">block</span> Blacklist Email</h3><button class="btn btn-ghost" onclick="closeModal('modal-add-blacklist')"><span class="material-icons-round">close</span></button></div>
+            <div class="modal-body">
+              <div class="form-group"><label>Email <small>(satu per baris untuk bulk)</small></label><textarea id="blacklist-emails" class="form-textarea" rows="4" placeholder="email@contoh.com"></textarea></div>
+              <div class="form-group"><label>Alasan</label><input type="text" id="blacklist-reason" class="form-input" placeholder="Bounce / Spam / Manual"></div>
+            </div>
+            <div class="modal-footer"><button class="btn btn-ghost" onclick="closeModal('modal-add-blacklist')">Batal</button><button class="btn btn-primary" id="btn-save-blacklist"><span class="material-icons-round">block</span> Blacklist</button></div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ========== SETTINGS ========== -->
+      <section class="page" id="page-settings">
+        <div class="page-header"><div class="page-header-left"><h1 class="page-title">Pengaturan</h1><p class="page-subtitle">Konfigurasi aplikasi</p></div></div>
+        <div class="settings-grid">
+          <div class="card">
+            <div class="card-header"><h3><span class="material-icons-round">tune</span> Umum</h3></div>
+            <div class="card-body">
+              <div class="setting-item"><div class="setting-info"><span class="setting-label">Delay antar Email (ms)</span><span class="setting-desc">Waktu tunggu antar pengiriman</span></div><input type="number" class="form-input setting-input" value="1000" min="500"></div>
+              <div class="setting-item"><div class="setting-info"><span class="setting-label">Rotasi Akun Otomatis</span><span class="setting-desc">Ganti akun saat limit tercapai</span></div><label class="switch"><input type="checkbox" checked><span class="slider"></span></label></div>
+              <div class="setting-item"><div class="setting-info"><span class="setting-label">Auto-Blacklist Bounce</span><span class="setting-desc">Otomatis blacklist setelah 3x gagal</span></div><label class="switch"><input type="checkbox" checked><span class="slider"></span></label></div>
+            </div>
+          </div>
+          <div class="card">
+            <div class="card-header"><h3><span class="material-icons-round">info</span> Tentang</h3></div>
+            <div class="card-body">
+              <div class="about-info">
+                <div class="about-logo"><span class="material-icons-round">rocket_launch</span></div>
+                <h2>Super Email</h2>
+                <p class="version">v2.0.0 — Enhanced Edition</p>
+                <p class="copyright">© 2026 Super Email</p>
+                <div class="about-features">
+                  <span class="about-feat"><span class="material-icons-round">check_circle</span> Spintax & Personalisasi</span>
+                  <span class="about-feat"><span class="material-icons-round">check_circle</span> Scheduler</span>
+                  <span class="about-feat"><span class="material-icons-round">check_circle</span> Grup Kontak</span>
+                  <span class="about-feat"><span class="material-icons-round">check_circle</span> Attachment</span>
+                  <span class="about-feat"><span class="material-icons-round">check_circle</span> Validasi MX</span>
+                  <span class="about-feat"><span class="material-icons-round">check_circle</span> Blacklist</span>
+                  <span class="about-feat"><span class="material-icons-round">check_circle</span> Pause/Resume</span>
+                  <span class="about-feat"><span class="material-icons-round">check_circle</span> Analytics</span>
+                  <span class="about-feat"><span class="material-icons-round">check_circle</span> Unsubscribe</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+    </main>
+  </div>
+
+  <!-- Preview Modal -->
+  <div class="modal-overlay" id="modal-preview" style="display:none">
+    <div class="modal modal-lg">
+      <div class="modal-header"><h3><span class="material-icons-round">preview</span> Preview Email</h3><button class="btn btn-ghost" onclick="closeModal('modal-preview')"><span class="material-icons-round">close</span></button></div>
+      <div class="modal-body"><div class="email-preview-frame"><iframe id="preview-iframe" class="preview-iframe"></iframe></div></div>
+    </div>
+  </div>
+
+  <!-- Group Picker for Campaign -->
+  <div class="modal-overlay" id="modal-group-picker" style="display:none">
+    <div class="modal">
+      <div class="modal-header"><h3><span class="material-icons-round">folder_shared</span> Pilih Grup</h3><button class="btn btn-ghost" onclick="closeModal('modal-group-picker')"><span class="material-icons-round">close</span></button></div>
+      <div class="modal-body"><div id="group-picker-list" class="group-selector-list"></div></div>
+    </div>
+  </div>
+
+  <div class="toast-container" id="toast-container"></div>
+  <script src="app.js"></script>
+</body>
+</html>

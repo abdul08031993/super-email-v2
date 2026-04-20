@@ -1,0 +1,45 @@
+{
+  "name": "super-email",
+  "version": "2.0.0",
+  "description": "Super Email - Professional Email Blast Application",
+  "main": "main.js",
+  "scripts": {
+    "start": "npx electron . --no-sandbox",
+    "dev": "npx electron . --no-sandbox --dev",
+    "build": "electron-builder"
+  },
+  "dependencies": {
+    "electron": "^33.0.0",
+    "nodemailer": "^6.9.9",
+    "better-sqlite3": "^11.7.0",
+    "node-cron": "^3.0.3",
+    "uuid": "^9.0.1",
+    "xlsx": "^0.18.5",
+    "csv-parser": "^3.0.0",
+    "cheerio": "^1.0.0-rc.12",
+    "axios": "^1.6.7",
+    "node-html-parser": "^6.1.13"
+  },
+  "devDependencies": {
+    "electron-builder": "^24.9.1"
+  },
+  "build": {
+    "appId": "com.superemail.app",
+    "productName": "Super Email",
+    "directories": {
+      "output": "dist"
+    },
+    "linux": {
+      "target": ["AppImage", "deb"],
+      "category": "Network"
+    },
+    "win": {
+      "target": ["nsis"]
+    },
+    "mac": {
+      "target": ["dmg"]
+    }
+  },
+  "author": "Super Email Team",
+  "license": "MIT"
+}
