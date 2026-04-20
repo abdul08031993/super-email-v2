@@ -2,13 +2,16 @@ name: Build Super Email
 on:
   push:
     tags:
-      - 'v*' # Akan berjalan otomatis kalau kamu buat tag versi, misal v2.0.0
+      - 'v*' # Akan berjalan saat kamu push tag, contoh: git tag v2.0.0 && git push origin v2.0.0
+    branches:
+      - main # Saya tambahkan ini juga agar kamu bisa tes build setiap kali push ke main
 
 jobs:
   release:
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
+        # Menjalankan build untuk Windows dan Mac secara bersamaan
         os: [windows-latest, macos-latest]
 
     steps:
@@ -19,17 +22,30 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: 20
+          cache: 'npm'
 
       - name: Install dependencies
-        run: npm install
+        # Menggunakan npm install dan memastikan native modules (sqlite3) terkompilasi dengan benar
+        run: |
+          npm install
+          npx electron-rebuild
 
       - name: Build Electron App
         run: npm run build
         env:
+          # Token ini otomatis disediakan oleh GitHub untuk proses rilis
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Upload Artifacts
+      - name: Upload Windows Artifact
+        if: matrix.os == 'windows-latest'
         uses: actions/upload-artifact@v4
         with:
-          name: Super-Email-${{ matrix.os }}
-          path: dist/*.${{ matrix.os == 'windows-latest' && 'exe' || 'dmg' }}
+          name: Super-Email-Windows
+          path: dist/*.exe
+
+      - name: Upload MacOS Artifact
+        if: matrix.os == 'macos-latest'
+        uses: actions/upload-artifact@v4
+        with:
+          name: Super-Email-MacOS
+          path: dist/*.dmg
