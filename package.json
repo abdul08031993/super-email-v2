@@ -6,7 +6,8 @@
   "scripts": {
     "start": "npx electron . --no-sandbox",
     "dev": "npx electron . --no-sandbox --dev",
-    "build": "electron-builder"
+    "build": "electron-builder",
+    "postinstall": "electron-builder install-app-deps"
   },
   "dependencies": {
     "electron": "^33.0.0",
@@ -21,23 +22,50 @@
     "node-html-parser": "^6.1.13"
   },
   "devDependencies": {
-    "electron-builder": "^24.9.1"
+    "electron-builder": "^24.9.1",
+    "electron-rebuild": "^3.2.9"
   },
   "build": {
     "appId": "com.superemail.app",
     "productName": "Super Email",
+    "copyright": "Copyright © 2026 Super Email Team",
     "directories": {
-      "output": "dist"
+      "output": "dist",
+      "buildResources": "build"
     },
-    "linux": {
-      "target": ["AppImage", "deb"],
-      "category": "Network"
-    },
+    "files": [
+      "**/*",
+      "!dist/*",
+      "!.github/*",
+      "!build/*"
+    ],
     "win": {
-      "target": ["nsis"]
+      "target": [
+        "nsis"
+      ],
+      "icon": "build/icon.ico"
     },
     "mac": {
-      "target": ["dmg"]
+      "target": [
+        "dmg"
+      ],
+      "icon": "build/icon.icns",
+      "category": "public.app-category.productivity"
+    },
+    "linux": {
+      "target": [
+        "AppImage",
+        "deb"
+      ],
+      "category": "Network",
+      "icon": "build/icons"
+    },
+    "nsis": {
+      "oneClick": false,
+      "allowToChangeInstallationDirectory": true,
+      "createDesktopShortcut": true,
+      "installerIcon": "build/icon.ico",
+      "uninstallerIcon": "build/icon.ico"
     }
   },
   "author": "Super Email Team",
